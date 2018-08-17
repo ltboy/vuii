@@ -8,23 +8,21 @@ const utils = require('./utils.js')
 
 module.exports = {
   entry: {
-    vendor: ['vue', 'vue-router'],
+    // vendor: ['vue', 'vue-router'],
     vuii: './examples/src/index.js'
-  },
-  output: {
-    path: utils.resolve('dist'),
-    filename: 'js/[name][hash:6].js',
-    publicPath: '/'
   },
   // 路径相关
   resolve: {
     // 别名
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      '@': utils.resolve('src')
+      '@': utils.resolve('src'),
+      packages: utils.resolve('packages'),
+      lib: utils.resolve('lib'),
+      components: utils.resolve('examples/src/components')
     },
     // 扩展 后缀名 (尽量少)
-    extensions: ['.js', '.vue', '.css', 'jsx', 'json'],
+    extensions: ['.js', '.vue', '.css'],
     modules: ['node_modules'],
     mainFiles: ['index']
   },
@@ -36,8 +34,8 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        include: [utils.resolve('src')],
         loader: 'babel-loader',
+        include: [utils.resolve('src'), utils.resolve('examples')],
         exclude: ['node_modules']
       },
       {
@@ -100,6 +98,6 @@ module.exports = {
         minifyJS: true,
         removeComments: true
       }
-    }),
+    })
   ]
 }

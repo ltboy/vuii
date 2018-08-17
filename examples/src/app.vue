@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="a">a demo with webpack4.0</div>
+  <div class="a">a demo with webpack4.0 1111</div>
   <router-view></router-view>
 </div>
 </template>

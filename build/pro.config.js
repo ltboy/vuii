@@ -9,24 +9,27 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // 压缩css
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 // 打包优化 分析
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+//   .BundleAnalyzerPlugin
 
 const baseConfig = require('./base.config.js')
 
 module.exports = merge(baseConfig, {
+  output: {
+    chunkFilename: '[id].[hash].js',
+    filename: '[name].min.[hash].js',
+    path: path.join(__dirname, '../examples/dist'),
+    publicPath: '/'
+  },
   mode: 'production',
+
   optimization: {
     // 代码分割
-    // minSize (default: 30000) 块的最小大小
-    // minChunks (default: 1) 拆分前共享一个模块的最小块数
-    // maxInitialRequests (default 3) 一个入口最大并行请求数
-    // maxAsyncRequests (default 5) 按需加载时最大行行请求数
     splitChunks: {
       cacheGroups: {
         commons: {
           chunks: 'initial', //通过chunks选项可以选择块，有3个值："initial"、"async"和"all"。分别用于选择初始块、按需加载的块和所有块。
-          minChunks: 2,
+          minChunks: 3,
           maxInitialRequests: 5,
           minSize: 1024
         },
@@ -35,12 +38,13 @@ module.exports = merge(baseConfig, {
           chunks: 'initial',
           name: 'vendor',
           priority: 10,
-          enforce: true
+          minSize: 1024
         }
       }
     },
-
-    // runtimeChunk:true,
+    runtimeChunk: {
+      name: 'mainfest'
+    },
     // 代码压缩丑化
     minimizer: [
       new UglifyJsPlugin({
@@ -76,10 +80,11 @@ module.exports = merge(baseConfig, {
     // 作用域提升 减少代码量
     new CleanWebpackPlugin('dist', {
       dry: false,
-      root: path.resolve(__dirname, '..')
+      root: path.resolve(__dirname, '../examples')
     }),
     // 作用域提升 减小打包体积
-    new webpack.optimize.ModuleConcatenationPlugin(),
-    new BundleAnalyzerPlugin()
+    new webpack.optimize.ModuleConcatenationPlugin()
+    // 打包分析
+    // new BundleAnalyzerPlugin()
   ]
 })
