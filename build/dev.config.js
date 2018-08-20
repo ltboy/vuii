@@ -2,7 +2,7 @@
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
-
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const utils = require('./utils.js')
 const baseConfig = require('./base.config.js')
 
@@ -27,6 +27,18 @@ module.exports = merge(baseConfig, {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'examples/index.html',
+      favicon: 'examples/assets/favicon.ico',
+      minify: {
+        collapseWhitespace: true,
+        collapseInlineTagWhitespace: true,
+        minifyCSS: true,
+        minifyJS: true,
+        removeComments: true
+      }
+    }),
     new FriendlyErrorsWebpackPlugin({
       compilationSuccessInfo: {
         messages: [`Your application is running here: http://${HOST}:${PORT}`],

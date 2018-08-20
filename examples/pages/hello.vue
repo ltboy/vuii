@@ -1,5 +1,5 @@
 <template>
-  <div>我是Home</div>
+  <ii-hello message='hello'></ii-hello>
 </template>
 <script>
 export default {

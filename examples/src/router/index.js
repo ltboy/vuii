@@ -2,7 +2,7 @@ import Router from 'vue-router'
 import Vue from 'vue'
 
 import Home from '../../pages/home'
-const About = () => import('../../pages/about')
+const About = () => import('../../pages/hello')
 Vue.use(Router)
 
 export default new Router({

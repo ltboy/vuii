@@ -3,13 +3,18 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
+const path = require('path')
 const utils = require('./utils.js')
 
 module.exports = {
   entry: {
-    // vendor: ['vue', 'vue-router'],
     vuii: './examples/src/index.js'
+  },
+  output: {
+    chunkFilename: '[id].[hash].js',
+    filename: '[name].min.[hash].js',
+    path: utils.resolve('examples/dist'),
+    publicPath: '/'
   },
   // 路径相关
   resolve: {
@@ -87,17 +92,5 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'examples/index.html',
-      favicon: 'examples/assets/favicon.ico',
-      minify: {
-        collapseWhitespace: true,
-        collapseInlineTagWhitespace: true,
-        minifyCSS: true,
-        minifyJS: true,
-        removeComments: true
-      }
-    })
   ]
 }

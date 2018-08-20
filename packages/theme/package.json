@@ -1,0 +1,27 @@
+{
+  "name": "vuii-theme",
+  "version": "1.0.0",
+  "description": "vuii styles",
+  "main": "lib/index.css",
+  "style": "lib/index.css",
+  "scripts": {
+    "build": "gulp build"
+  },
+  "keywords": [
+    "css",
+    "theme",
+    "vuii"
+  ],
+  "browsers": [
+    "ie > 9",
+    "last 2 versions"
+  ],
+  "author": "ltboy",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-sass": "^4.0.1"
+  }
+}

@@ -6,6 +6,7 @@ const path = require('path')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 压缩css
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 // 打包优化 分析
@@ -15,12 +16,6 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const baseConfig = require('./base.config.js')
 
 module.exports = merge(baseConfig, {
-  output: {
-    chunkFilename: '[id].[hash].js',
-    filename: '[name].min.[hash].js',
-    path: path.join(__dirname, '../examples/dist'),
-    publicPath: '/'
-  },
   mode: 'production',
 
   optimization: {
@@ -77,13 +72,25 @@ module.exports = merge(baseConfig, {
     new MiniCssExtractPlugin({
       filename: '[name].css'
     }),
-    // 作用域提升 减少代码量
     new CleanWebpackPlugin('dist', {
       dry: false,
       root: path.resolve(__dirname, '../examples')
     }),
     // 作用域提升 减小打包体积
-    new webpack.optimize.ModuleConcatenationPlugin()
+    new webpack.optimize.ModuleConcatenationPlugin(),
+
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'examples/index.html',
+      favicon: 'examples/assets/favicon.ico',
+      minify: {
+        collapseWhitespace: true,
+        collapseInlineTagWhitespace: true,
+        minifyCSS: true,
+        minifyJS: true,
+        removeComments: true
+      }
+    })
     // 打包分析
     // new BundleAnalyzerPlugin()
   ]
