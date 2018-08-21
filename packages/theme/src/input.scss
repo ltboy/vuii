@@ -1,0 +1,60 @@
+@import './common/var.scss';
+@import './mixin/index.scss';
+@import './animate/index.scss';
+
+.ii_input {
+  &-group {
+    position: relative;
+  }
+  &-input {
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    flex-grow: 1;
+    text-align: inherit;
+    font:inherit;
+    vertical-align: bottom;
+  }
+  &-container{
+    display: flex;
+    border-bottom: $input-border;
+    padding: $padding-s 0;
+  }
+  &-label-warp{
+    height: 100%;
+    padding-top: .85em;
+    position: absolute;
+    top: -.85em;
+    font:inherit;
+    pointer-events: none;
+    width: 100%;
+    overflow: hidden;
+  }
+  &-label{
+    @include ell;
+    color: rgba(0, 0, 0, 0.54);
+    position: absolute;
+    left: 0;
+    padding-top: $padding-s;
+    transform-origin: 0 0; 
+    transition: transform $duration $transtion-function ,color $duration $transtion-function;
+  }
+}
+
+.ii_input-group--focus,.ii_input-group--has{
+  .ii_input-label{
+    transform:translateY(-1.28125em) scale(.75) perspective(100px) translateZ(.001px);
+  }
+}
+.ii_input-group--focus{
+  .ii_input-label{
+    color: #673ab7;
+  }
+}
+.ii_input-group--invalid{
+  .ii_input-label{
+    color: $color-warn;
+  }
+}
