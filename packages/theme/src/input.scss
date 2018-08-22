@@ -19,8 +19,21 @@
   }
   &-container{
     display: flex;
+    position: relative;
     border-bottom: $input-border;
     padding: $padding-s 0;
+    &::after{
+      content: ' ';
+      position: absolute;
+      bottom: -1px;
+      height: 2px;
+      width: 100%;
+      background: #673ab7;
+      display: block;
+      opacity: 0;
+      transform: scaleX(.3);
+      transition: transform $duration $transtion-function;
+    }
   }
   &-label-warp{
     height: 100%;
@@ -47,6 +60,10 @@
   .ii_input-label{
     transform:translateY(-1.28125em) scale(.75) perspective(100px) translateZ(.001px);
   }
+  .ii_input-container::after{
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
 .ii_input-group--focus{
   .ii_input-label{
@@ -54,7 +71,13 @@
   }
 }
 .ii_input-group--invalid{
-  .ii_input-label{
+  .ii_input-label,.ii_input-error{
     color: $color-warn;
+  }
+  .ii_input-container{
+    border-bottom-color: $color-warn;
+  }
+  .ii_input-container::after{
+    background-color:$color-warn; 
   }
 }

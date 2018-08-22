@@ -23,7 +23,7 @@
     <div class="ii_input-subscript">
       <slot name="subscript"></slot>
     </div>
-    <div class="ii_input-error">
+    <div class="ii_input-error" v-if="validate===-1">
       <slot name="error"></slot>
     </div>
   </div>
@@ -40,7 +40,7 @@ export default {
       default: 'text',
     },
     valid: {
-      type: Boolean,
+      type: Function,
       default: null,
     },
   },
@@ -72,7 +72,7 @@ export default {
       if (text === '' || this.valid === null || this.valid === undefined) {
         return (this.validate = 0)
       }
-      if (this.valid) {
+      if (this.valid(text)) {
         return (this.validate = 1)
       }
       return (this.validate = -1)

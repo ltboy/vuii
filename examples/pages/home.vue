@@ -1,7 +1,9 @@
 <template>
   <div>
     <p>我是Home</p>
-    <ii-input placeholder='用户名' v-model="name"/>
+    <ii-input placeholder='用户名' :valid='valid' v-model="name">
+      <p slot='error'>请输入纯数字 <small>like:123</small></p>
+    </ii-input>
     <p>{{name}}</p>
   </div>
 </template>
@@ -12,7 +14,12 @@ export default {
       name: '',
     }
   },
-  
+  methods: {
+    valid(text) {
+      console.log(/^\d$/ig.test(text))
+      return /^\d*$/ig.test(text)
+    },
+  },
 }
 </script>
 
